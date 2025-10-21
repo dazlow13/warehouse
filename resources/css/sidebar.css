@@ -1,0 +1,26 @@
+/* resources/css/sidebar.css */
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    flex-grow: 1;
+    overflow-y: auto; /* nếu menu dài */
+}
+
+.bi-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+.show > .bi-chevron-down {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 991px) {
+    .sidebar {
+        width: 100%;
+    }
+}
