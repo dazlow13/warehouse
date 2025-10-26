@@ -85,7 +85,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
         }
-        
+
         Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
@@ -102,9 +102,12 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $categories = Category::query()->get();
+        $manufacturers = Manufacturer::query()->get();
+        $product = $this->model->findOrFail($id);
+        return view('products.edit', compact('product', 'categories', 'manufacturers'));
     }
 
     /**
@@ -114,11 +117,44 @@ class ProductController extends Controller
     {
         $product = $this->model->findOrFail($id);
 
-        $data = $request->validated(); // Lấy dữ liệu hợp lệ
-        dd($data);
-        $product->update($data); // Cập nhật sản phẩm
+        $data = $request->validated(); 
+        if ($request->hasFile('image')) {
+            if ($product->image && file_exists(public_path('storage/' . $product->image))) {
+                unlink(public_path('storage/' . $product->image));
+            }
+            $data['image'] = $request->file('image')->store('products', 'public');
+        } else {
+            $data['image'] = $product->image;
+        }
+
+        $product->update($data);
 
         return redirect()->route('products.index');
+        // $product = $this->model->findOrFail($id);
+        // if ($request->hasFile('image')) {
+        //     if ($product->image && file_exists(public_path('storage/' . $product->image))) {
+        //         unlink(public_path('storage/' . $product->image));
+        //     }
+        //     // Lưu ảnh mới
+        //     $imagePath = $request->file('image')->store('products', 'public');
+        // }else {
+        //     $imagePath = $product->image;
+        // }
+
+        // // Lấy dữ liệu hợp lệ
+        // $product->update([
+        //     'name' => $request->name,
+        //     'category_id' => $request->category_id,
+        //     'manufacturer_id' => $request->manufacturer_id,
+        //     'quantity' => $request->quantity,
+        //     'unit' => $request->unit,
+        //     'cost_price' => $request->cost_price,
+        //     'sale_price' => $request->sale_price,
+        //     'description' => $request->description,
+        //     'image' => $imagePath,
+        // ]); // Cập nhật sản phẩm
+
+        // return redirect()->route('products.index');
     }
 
 

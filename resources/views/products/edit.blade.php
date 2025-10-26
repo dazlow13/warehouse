@@ -1,35 +1,83 @@
 @extends('layout.master')
 @section('content')
-    <h1>{{$title}}</h1>
-    <form action="{{ route('products.update', $product->id) }}" method="POST" class="max-w-lg bg-white p-6 rounded shadow">
+    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data"
+        class="bg-white p-4 rounded shadow-sm">
         @csrf
         @method('PUT')
-        <!-- Product Name -->
-        <div class="mb-4">
-            Product Name
-            <input type="text" name="name" value="{{ old('name', $product->name) }}"
-                class="border border-gray-300 rounded px-3 py-2 w-full focus:ring-blue-500 focus:border-blue-500" required>
+
+        {{-- Product Name --}}
+        <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control" required>
         </div>
-        <!-- Product Price -->
-        <div class="mb-4">
-            Product Price
-            <input type="number" name="price" value="{{ old('price', $product->price) }}" step="0.01"
-                class="border border-gray-300 rounded px-3 py-2 w-full focus:ring-blue-500 focus:border-blue-500" required>
+        {{-- Product Category --}}
+        <div class="mb-3">
+            <label class="form-label">Product Category</label>
+            <select name="category_id" class="form-select" required>
+                <option value="">Select Category</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
-        <!-- Product Description -->
-        <div class="mb-4">
-            Product Description
-            <textarea name="description" rows="4"
-                class="border border-gray-300 rounded px-3 py-2 w-full focus:ring-blue-500 focus:border-blue-500" required>{{ old('description', $product->description) }}</textarea>
+        {{-- Product Manufacturer --}}
+        <div class="mb-3">
+            <label class="form-label">Product Manufacturer</label>
+            <select name="manufacturer_id" class="form-select" required>
+                <option value="">Select Manufacturer</option>
+                @foreach($manufacturers as $manufacturer)
+                    <option value="{{ $manufacturer->id }}" {{ old('manufacturer_id', $product->manufacturer_id) == $manufacturer->id ? 'selected' : '' }}>
+                        {{ $manufacturer->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
-        <!-- Buttons -->
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 rounded">
-            Update Product
-        </button>
-        <button type="button" onclick="window.history.back()"
-            class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">
-            Cancel
-        </button>
+        {{-- Product Quantity --}}
+        <div class="mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="number" name="quantity" value="{{ old('quantity', $product->quantity) }}" class="form-control"
+                required>
+        </div>
+        {{-- Product Unit --}}
+        <div class="mb-3">
+            <label class="form-label">Unit</label>
+            <input type="text" name="unit" value="{{ old('unit', $product->unit) }}" class="form-control" required>
+        </div>
+        {{-- Product Cost --}}
+        <div>
+            <label class="form-label">Cost Price</label>
+            <input type="text" name="cost_price" value="{{ old('cost_price', $product->cost_price) }}" class="form-control"
+                required>
+        </div>
+        <div>
+            {{-- Product Sale --}}
+            <div class="mb-3">
+                <label class="form-label">Sale Price</label>
+                <input type="text" name="sale_price" value="{{ old('sale_price', $product->sale_price) }}"
+                    class="form-control" required>
+            </div>
+            {{-- Product Description --}}
+            <div class="mb-3">
+                <label class="form-label">Product Description</label>
+                <textarea name="description" rows="4" class="form-control"
+                    required>{{ old('description', $product->description) }}</textarea>
+            </div>
+            {{-- Product Image --}}
+            <div>
+                <label class="form-label">Product Image</label>
+                <input type="file" name="image" id="image" accept="image/*" class="form-control">
+            </div>
+
+            {{-- Buttons --}}
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Update Product</button>
+                <a href="{{ route('products.index') }}" class="btn-cancel">
+                    Cancel
+                </a>
+            </div>
     </form>
+
 
 @endsection

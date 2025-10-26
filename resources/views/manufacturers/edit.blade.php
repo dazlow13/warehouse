@@ -73,7 +73,7 @@
             {{ isset($manufacturer) ? 'Update' : 'Save' }}
         </button>
         <a href="{{ route('manufacturers.index') }}" 
-           class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition">
+           class="btn-cancel">
             Cancel
         </a>
     </div>

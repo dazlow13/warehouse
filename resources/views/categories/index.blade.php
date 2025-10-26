@@ -1,24 +1,25 @@
 @extends('layout.master')
 
 @section('content')
-    <a href="{{ route('categories.create') }}"
-        class="bg-blue-600 text-white px-4 py-2 rounded mb-3 inline-block hover:bg-blue-700">
+    <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">
         + Thêm danh mục
     </a>
-    <table id="categories-table" class="min-w-full border border-gray-300">
-        <thead class="bg-gray-100">
-            <tr>
-                <th>ID</th>
-                <th>Category Name</th>
-                <th>Slug</th>
-                <th>Product quantity</th>
-                <th>Image</th>
-                <th>Create At</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="table-responsive">
+        <table id="categories-table" class="table table-striped table-bordered w-100">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Category Name</th>
+                    <th>Slug</th>
+                    <th>Product quantity</th>
+                    <th>Image</th>
+                    <th>Create At</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 @endsection
 @push('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -35,7 +36,7 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
-                    { data: 'slug', name: 'slug'},
+                    { data: 'slug', name: 'slug' },
                     { data: 'product_count', name: 'products_count' },
                     {
                         data: 'image',
@@ -46,11 +47,11 @@
                             if (!data) return '';
                             // Nếu là link đầy đủ (ảnh faker)
                             if (data.startsWith('http')) {
-                                return `<img src="${data}" alt="Image" class="w-12 h-12 object-cover rounded">`;
+                                return `<img src="${data}" alt="Image" class="table-image">`;
                             }
                             // Nếu là ảnh upload (file thật trong storage)
                             let baseUrl = "{{ asset('storage') }}";
-                            return `<img src="${baseUrl}/${data}" alt="Image" class="w-12 h-12 object-cover rounded">`;
+                            return `<img src="${baseUrl}/${data}" alt="Image" class="table-image">`;
                         }
                     },
                     { data: 'created_at', name: 'created_at', searchable: false },

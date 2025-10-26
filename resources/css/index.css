@@ -1,0 +1,24 @@
+/* Custom styles for Cancel button */
+.btn-cancel {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    color: #374151; /* text-gray-700 */
+    border-radius: 6px;
+    background-color: #f9fafb; /* bg-gray-50 */
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #e5e7eb; /* hover:bg-gray-200 */
+    color: #111827; /* hover:text-gray-900 */
+}
+
+/* Table image styling */
+.table-image {
+    width: 48px; /* 12 * 4 */
+    height: 48px; /* 12 * 4 */
+    object-fit: cover;
+    border-radius: 0.375rem; /* rounded */
+}

@@ -3,25 +3,25 @@
     <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Category Name -->
-        <div class="mb-4">
-            Category Name
-            <input type="text" name="name"
-                class="border border-gray-300 rounded px-3 py-2 w-full focus:ring-blue-500 focus:border-blue-500" required>
+        <div class="mb-3">
+            <label for="name" class="form-label">Category Name</label>
+            <input type="text" name="name" id="name" class="form-control" required>
         </div>
+
         <!-- Image Upload -->
-        <div class="mb-4">
-            Image
-            <input type="file" name="image" id="image" accept="image/*"
-                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-md p-1 bg-white file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" name="image" id="image" accept="image/*" class="form-control">
         </div>
+
         <!-- Buttons -->
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 rounded">
+        <button type="submit" class="btn btn-primary">
             Create Category
         </button>
-        <button type="button" onclick="window.history.back()"
-            class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">
+        <a href="{{ route('categories.index') }}" class="btn-cancel">
             Cancel
-        </button>
+        </a>
     </form>
+
 
 @endsection

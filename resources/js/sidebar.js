@@ -22,3 +22,4 @@ document.addEventListener('click', function (event) {
         arrow.classList.remove('rotate-180');
     }
 });
+

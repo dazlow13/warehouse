@@ -1,26 +1,122 @@
-/* resources/css/sidebar.css */
+/* Wrapper toàn bộ */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
 .sidebar {
     width: 250px;
-    min-height: 100vh;
+    /* cố định width */
+    background-color: #f8f9fa;
+    /* màu nền */
     display: flex;
     flex-direction: column;
-}
-
-nav {
-    flex-grow: 1;
-    overflow-y: auto; /* nếu menu dài */
-}
-
-.bi-chevron-down {
+    min-height: 100vh;
+    flex-shrink: 0;
+    border-right: 1px solid #ddd;
+    position: fixed;
+    /* cố định bên trái */
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    overflow-y: auto;
+    /* scroll nếu menu dài */
     transition: transform 0.3s ease;
 }
 
-.show > .bi-chevron-down {
+/* Logo */
+.sidebar .logo {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sidebar .logo a {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #000;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.sidebar .logo a:hover {
+    transform: scale(1.05);
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Navbar menu */
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav .nav-item {
+    width: 100%;
+}
+
+.sidebar nav .nav-link,
+.sidebar nav .dropdown-item,
+.sidebar nav button.btn {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    color: #343a40;
+    font-weight: 500;
+}
+
+.sidebar nav .nav-link:hover,
+.sidebar nav .dropdown-item:hover,
+.sidebar nav button.btn:hover {
+    background-color: #e9ecef;
+    color: #000;
+}
+
+/* Collapse icon */
+.sidebar nav .bi-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+.sidebar nav .show>.bi-chevron-down {
     transform: rotate(180deg);
 }
 
+/* Logout đáy */
+.sidebar>.p-3 {
+    margin-top: auto;
+    /* đẩy xuống đáy */
+}
+
+/* Main content nhường chỗ sidebar */
+.main-content {
+    margin-left: 250px;
+    flex: 1;
+    padding: 1rem;
+    min-width: 0;
+}
+
+/* Table responsive */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Responsive: overlay sidebar */
 @media (max-width: 991px) {
     .sidebar {
-        width: 100%;
+        transform: translateX(-100%);
+        position: fixed;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
     }
 }
+/*logo*/

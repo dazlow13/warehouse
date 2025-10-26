@@ -17,7 +17,7 @@ class StoreProductRequest extends FormRequest
             'cost_price' => 'bail|required|numeric|min:0',
             'sale_price' => 'bail|required|numeric|min:0',
             'description' => 'bail|nullable|string|max:1000',
-            'image' => 'bail|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'bail|nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
     public function messages(): array

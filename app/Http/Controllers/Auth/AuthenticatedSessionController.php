@@ -24,6 +24,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $remember = $request->filled('remember');
+        if (!Auth::attempt($request->only('email','password'),$remember)) {
+            return back()->withErrors(['email'=>'Email hoặc mật khẩu không đúng'])->withInput();
+            # code...
+        }
         $request->authenticate();
 
         $request->session()->regenerate();
@@ -42,6 +47,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

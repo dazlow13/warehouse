@@ -20,10 +20,10 @@
             <br>
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Create
                 Manufacturer</button>
-            <button type="button" onclick="window.history.back()"
-                class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">
+            <a href="{{ route('manufacturers.index') }}"
+                class="btn-cancel">
                 Cancel
-            </button>
+            </a>
         </div>
     </form>
 @endsection
