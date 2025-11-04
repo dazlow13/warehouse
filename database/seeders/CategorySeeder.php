@@ -16,16 +16,6 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Category::truncate();
-        Schema::enableForeignKeyConstraints();
-        
-        $faker = Factory::create();
-        for ($i = 0; $i < 10; $i++) {
-            Category::create([
-                'name' => $faker->word,
-                'image' => null,
-            ]);
-        }
+       Category::factory(10)->create();
     }
 }

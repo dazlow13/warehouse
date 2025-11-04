@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
+use  App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
@@ -18,10 +19,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('manufacturers', ManufacturerController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('transactions', TransactionController::class);
 });
+
 Route::get('api/manufacturers', [ManufacturerController::class,'api'])->name('manufacturers.api');
 Route::get('api/categories', [CategoryController::class, 'api'])->name('categories.api');
 Route::get('api/products', [ProductController::class,'api'])->name('products.api');
+Route::get('api/transactions', [TransactionController::class,'api'])->name('transactions.api');
+Route::get('/transactions/{transaction}/print', [TransactionController::class, 'print'])
+    ->name('transactions.print');
 Route::get('/', function () {
     return view('layout.master');
 });

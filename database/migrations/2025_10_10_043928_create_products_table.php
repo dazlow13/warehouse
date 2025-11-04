@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->foreignId('manufacturer_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('quantity')->default(0);
             $table->string('unit', 50)->default('chiếc');//đơn vị tính
-            $table->decimal('cost_price', 15, 2)->default(0);
-            $table->decimal('sale_price', 15, 2)->default(0);
+            $table->decimal('cost_price', 15, 2)->default(0.00);
+            $table->decimal('sale_price', 15, 2)->default(0.00);
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

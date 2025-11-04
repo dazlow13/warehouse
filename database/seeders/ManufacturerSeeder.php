@@ -15,22 +15,6 @@ class ManufacturerSeeder extends Seeder
      */
     public function run(): void
     {
-        // Xóa dữ liệu cũ nếu muốn dữ liệu sạch
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Manufacturer::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        // Faker
-        $faker = Faker::create();
-
-        for ($i = 0; $i < 10; $i++) {
-            Manufacturer::create([
-                'name'        => $faker->company,
-                'email'       => $faker->unique()->companyEmail,
-                'phone'       => $faker->phoneNumber,
-                'address'     => $faker->address,
-                'description' => $faker->catchPhrase,
-            ]);
-        }
+        Manufacturer::factory(10)->create();
     }    
 }

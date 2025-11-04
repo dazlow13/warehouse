@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Route as FacadesRoute;
 
 
@@ -30,7 +31,7 @@ class CategoryController extends Controller
 
     public function api()
     {
-        return Datatables()->of($this->model->withCount('products'))
+        return Datatables::of($this->model->withCount('products'))
             ->addColumn('created_at', function ($object) {
                 return $object->created_at ? $object->created_at->format('d/m/Y H:i') : '';
             })

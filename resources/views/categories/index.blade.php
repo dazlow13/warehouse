@@ -11,7 +11,7 @@
                     <th>ID</th>
                     <th>Category Name</th>
                     <th>Slug</th>
-                    <th>Product quantity</th>
+                    <th>Product Quantity</th>
                     <th>Image</th>
                     <th>Create At</th>
                     <th>Edit</th>

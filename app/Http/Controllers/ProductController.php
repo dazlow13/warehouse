@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Route as FacadesRoute;
 
 class ProductController extends Controller
@@ -33,7 +34,7 @@ class ProductController extends Controller
      */
     public function api()
     {
-        return Datatables()->of($this->model->with(['category', 'manufacturer']))
+        return Datatables::of($this->model->with(['category', 'manufacturer']))
             ->editColumn('cost_price', function ($product) {
                 return '$' . number_format($product->cost_price, 2);
             })

@@ -20,25 +20,33 @@ class UserFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
-     */
-    public function definition(): array
+     */public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ];
     }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    //admin
+    public function admin(): self
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+        return $this->state([
+            'name' => 'Admin',
+            'email' => 'admin@warehouse.com',
+            'password' => bcrypt('123456'),
+        ]);
+    }
+
+    //  Thủ kho
+    public function warehouseman(): self
+    {
+        return $this->state([
+            'name' => 'Thủ kho A',
+            'email' => 'thukho@warehouse.com',
+            'password' => bcrypt('kho123'),
         ]);
     }
 }

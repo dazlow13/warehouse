@@ -31,7 +31,7 @@
                 </li>
 
                 <!-- Các menu khác -->
-                <li class="mb-2"><a href="#" class="nav-link">Đơn hàng</a></li>
+                <li class="mb-2"><a href="{{ route('transactions.index') }}" class="nav-link">Đơn hàng</a></li>
                 <li class="mb-2"><a href="#" class="nav-link">Tồn kho</a></li>
                 <li class="mb-2"><a href="#" class="nav-link">Thống kê</a></li>
                 <li class="mb-2"><a href="{{ route('manufacturers.index') }}" class="nav-link">Nhà sản xuất</a></li>
