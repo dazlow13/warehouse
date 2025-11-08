@@ -2,7 +2,7 @@
     <div class="sidebar">
         <!-- Header -->
         <div class="logo">
-            <a href="{{ route('dashboard') }}">📦 Warehouse</a>
+            <a href="{{ route(Auth::user()->role . '.dashboard') }}">📦 Warehouse</a>
         </div>
 
         <!-- Navigation -->
@@ -10,6 +10,7 @@
             <ul class="navbar-nav ml-auto">
 
                 <!-- Sản phẩm với collapse -->
+                @notrole('viewer','warehouser')
                 <li class="nav-item dropdown">
                     <button class="btn w-100 d-flex justify-content-between align-items-center "
                         data-bs-toggle="collapse" data-bs-target="#submenuProducts">
@@ -18,23 +19,25 @@
                     </button>
                     <ul class="dropdown-menu" id="submenuProducts">
                         <li>
-                            <a href="{{ route('products.index') }}" class="dropdown-item">
+                            <a href="{{ role_route('products.index') }}" class="dropdown-item">
                                 Tất cả sản phẩm
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('categories.index') }}" class="dropdown-item">
+                            <a href="{{ role_route('categories.index') }}" class="dropdown-item">
                                 Loại sản phẩm
                             </a>
                         </li>
                     </ul>
                 </li>
-
+                @endnotrole
                 <!-- Các menu khác -->
-                <li class="mb-2"><a href="{{ route('transactions.index') }}" class="nav-link">Đơn hàng</a></li>
+                <li class="mb-2"><a href="{{ role_route('transactions.index') }}" class="nav-link">Đơn hàng</a></li>
                 <li class="mb-2"><a href="#" class="nav-link">Tồn kho</a></li>
                 <li class="mb-2"><a href="#" class="nav-link">Thống kê</a></li>
-                <li class="mb-2"><a href="{{ route('manufacturers.index') }}" class="nav-link">Nhà sản xuất</a></li>
+                @role('admin')
+                <li class="mb-2"><a href="{{ role_route('manufacturers.index') }}" class="nav-link">Nhà sản xuất</a></li>
+                @endrole
                 <li class="mb-2"><a href="#" class="nav-link">Người dùng</a></li>
 
             </ul>

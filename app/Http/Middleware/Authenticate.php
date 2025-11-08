@@ -20,7 +20,7 @@ class Authenticate
     {
         // Nếu request không phải API thì chuyển hướng login
         if (! $request->expectsJson()) {
-            return route('login');
+            return route('auth.login');
         }
 
         return null;

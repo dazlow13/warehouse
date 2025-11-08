@@ -33,6 +33,7 @@ return array(
     'App\\Http\\Requests\\StoreCategoryRequest' => $baseDir . '/app/Http/Requests/StoreCategoryRequest.php',
     'App\\Http\\Requests\\StoreManufacturerRequest' => $baseDir . '/app/Http/Requests/StoreManufacturerRequest.php',
     'App\\Http\\Requests\\StoreProductRequest' => $baseDir . '/app/Http/Requests/StoreProductRequest.php',
+    'App\\Http\\Requests\\StoreTransactionRequest' => $baseDir . '/app/Http/Requests/StoreTransactionRequest.php',
     'App\\Http\\Requests\\UpdateCategoryRequest' => $baseDir . '/app/Http/Requests/UpdateCategoryRequest.php',
     'App\\Http\\Requests\\UpdateManufacturerRequest' => $baseDir . '/app/Http/Requests/UpdateManufacturerRequest.php',
     'App\\Http\\Requests\\UpdateProductRequest' => $baseDir . '/app/Http/Requests/UpdateProductRequest.php',

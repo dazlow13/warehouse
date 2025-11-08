@@ -27,16 +27,29 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),
+            'role' => 'user',
             'remember_token' => Str::random(10),
         ];
     }
-    //admin
+    //sadmin
     public function admin(): self
     {
         return $this->state([
             'name' => 'Admin',
             'email' => 'admin@warehouse.com',
             'password' => bcrypt('123456'),
+            'role' => 'admin',
+        ]);
+    }
+
+    //quanly
+    public function manager(): self
+    {
+        return $this->state([
+            'name' => 'Manager',
+            'email' => 'manager@warehouse.com',
+            'password' => bcrypt('quanly123'),
+            'role' => 'manager',
         ]);
     }
 
@@ -47,6 +60,7 @@ class UserFactory extends Factory
             'name' => 'Thủ kho A',
             'email' => 'thukho@warehouse.com',
             'password' => bcrypt('kho123'),
+            'role' => 'warehouseman',
         ]);
     }
 }

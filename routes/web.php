@@ -7,34 +7,38 @@ use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
 use  App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-            ->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function(){ return view('dashboard'); })
-    ->middleware('auth')->name('dashboard');
-    Route::resource('categories', CategoryController::class);
-    Route::resource('manufacturers', ManufacturerController::class);
-    Route::resource('products', ProductController::class);
-    Route::resource('transactions', TransactionController::class);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });
 
-Route::get('api/manufacturers', [ManufacturerController::class,'api'])->name('manufacturers.api');
-Route::get('api/categories', [CategoryController::class, 'api'])->name('categories.api');
-Route::get('api/products', [ProductController::class,'api'])->name('products.api');
-Route::get('api/transactions', [TransactionController::class,'api'])->name('transactions.api');
-Route::get('/transactions/{transaction}/print', [TransactionController::class, 'print'])
-    ->name('transactions.print');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout')
+    ->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('/manager/dashboard', fn() => view('manager.dashboard'))->name('manager.dashboard');
+    Route::get('/warehouse/dashboard', fn() => view('warehouse.dashboard'))->name('warehouse.dashboard');
+});
+Route::get('/dashboard', function () {
+    $role = Auth::user()->role ?? 'guest';
+    return redirect()->route("{$role}.dashboard");
+})->middleware('auth')->name('dashboard');
+
 Route::get('/', function () {
     return view('layout.master');
 });
+
+
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/warehouse.php';
+require __DIR__.'/admin.php';
+require __DIR__.'/manager.php';
