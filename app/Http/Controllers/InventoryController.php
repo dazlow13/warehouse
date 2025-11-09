@@ -23,13 +23,13 @@ class InventoryController extends Controller
     {
         return Datatables::of($this->model->with(['category', 'manufacturer'])->select('products.*'))
             ->editColumn('created_at', function ($product) {
-                return $product->created_at ? $product->created_at->format('d/m/Y H:i') : '';
+                return $product->created_at ?->format('d/m/Y H:i') ?? '';
             })
             ->addColumn('category_name', function ($product) {
-                return $product->category ? $product->category->name : 'Không xác định';
+                return $product->category ?-> name ?? 'Không xác định';
             })
             ->addColumn('manufacturer_name', function ($product) {
-                return $product->manufacturer ? $product->manufacturer->name : 'Không xác định';
+                return $product->manufacturer ?-> name ?? 'Không xác định';
             })
             ->addColumn('quantity_status', function ($row) {
                 if ($row->quantity <= 0)

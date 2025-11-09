@@ -28,14 +28,14 @@ class ManufacturerController extends Controller
     {
         return DataTables::of($this->model->with('products'))
 
-            ->addColumn('created_at', function ($object) {
-                return $object->created_at ? $object->created_at->format('Y-m-d H:i:s') : '';
+            ->addColumn('created_at', function ($manufacturer) {
+                return $manufacturer->created_at ?-> format('Y-m-d H:i:s') ?? '';
             })
-            ->addColumn('edit', function ($object) {
-                return '<a href="' . route('manufacturers.edit', $object->id) . '" class="btn btn-primary">Edit</a>';
+            ->addColumn('edit', function ($manufacturer) {
+                return '<a href="' . route('manufacturers.edit', $manufacturer->id) . '" class="btn btn-primary">Edit</a>';
             })
-            ->addColumn('destroy', function ($object) {
-                return '<form action="' . route('manufacturers.destroy', $object->id) . '" method="POST" onsubmit="return confirm(\'Are you sure?\');">'
+            ->addColumn('destroy', function ($manufacturer) {
+                return '<form action="' . route('manufacturers.destroy', $manufacturer->id) . '" method="POST" onsubmit="return confirm(\'Are you sure?\');">'
                     . csrf_field()
                     . method_field('DELETE')
                     . '<button type="submit" class="btn btn-danger">Delete</button>'

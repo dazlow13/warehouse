@@ -42,13 +42,13 @@ class ProductController extends Controller
                 return '$' . number_format($product->sale_price, 2);
             })
             ->addColumn('category_name', function ($product) {
-                return $product->category ? $product->category->name : 'Không xác định';
+                return $product->category?->name ?? 'Không xác định';
             })
             ->addColumn('manufacturer_name', function ($product) {
-                return $product->manufacturer ? $product->manufacturer->name : 'Không xác định';
+                return $product->manufacturer?->name ?? 'Không xác định';
             })
             ->editColumn('created_at', function ($product) {
-                return $product->created_at ? $product->created_at->format('d/m/Y H:i') : '';
+                return $product->created_at ?->format('d/m/Y H:i') ?? '';
             })
             ->addColumn('edit', function ($product) {
                 return '<a href="' . route('products.edit', $product->id) . '" class="btn btn-primary">Edit</a>';

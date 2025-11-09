@@ -32,17 +32,17 @@ class CategoryController extends Controller
     public function api()
     {
         return Datatables::of($this->model->withCount('products'))
-            ->addColumn('created_at', function ($object) {
-                return $object->created_at ? $object->created_at->format('d/m/Y H:i') : '';
+            ->addColumn('created_at', function ($category) {
+                return $category->created_at ?-> format('d/m/Y H:i') ?? '';
             })
-            ->addColumn('product_count', function ($object) {
-                return $object->products_count;
+            ->addColumn('product_count', function ($category) {
+                return $category->products_count;
             })
-            ->addColumn('edit', function ($object) {
-                return '<a href="' . route('categories.edit', $object->id) . '" class="btn btn-primary">Edit</a>';
+            ->addColumn('edit', function ($category) {
+                return '<a href="' . route('categories.edit', $category->id) . '" class="btn btn-primary">Edit</a>';
             })
-            ->addColumn('destroy', function ($object) {
-                return '<form action="' . route('categories.destroy', $object->id) . '" method="POST" onsubmit="return confirm(\'Are you sure?\');">'
+            ->addColumn('destroy', function ($category) {
+                return '<form action="' . route('categories.destroy', $category->id) . '" method="POST" onsubmit="return confirm(\'Are you sure?\');">'
                     . csrf_field()
                     . method_field('DELETE')
                     . '<button type="submit" class="btn btn-danger">Delete</button>'

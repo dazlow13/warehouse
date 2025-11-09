@@ -34,29 +34,29 @@ class TransactionController extends Controller
     public function api()
     {
         return DataTables::of($this->model->with(['user', 'details.product'])->select('transactions.*'))
-            ->addColumn('user', function ($row) {
-                return $row->user ? $row->user->name : 'N/A';
+            ->addColumn('user', function ($object) {
+                return $object->user ?->name ?? 'N/A';
             })
-            ->addColumn('product_name', function ($row) {
-                return $row->details->map(fn($d) => $d->product_name)->implode(', ');
+            ->addColumn('product_name', function ($object) {
+                return $object->details->map(fn($d) => $d->product_name)->implode(', ');
             })
-            ->addColumn('total_items', function ($row) {
-                return $row->details->sum('quantity');
+            ->addColumn('total_items', function ($object) {
+                return $object->details->sum('quantity');
             })
-            ->addColumn('total_amount_formatted', function ($row) {
-                return '$' . number_format($row->total_amount);
+            ->addColumn('total_amount_formatted', function ($object) {
+                return '$' . number_format($object->total_amount);
             })
-            ->addColumn('type_label', function ($row) {
-                return $row->type === 'import'
+            ->addColumn('type_label', function ($object) {
+                return $object->type === 'import'
                     ? '<span class="badge bg-success">Nhập kho</span>'
                     : '<span class="badge bg-danger">Xuất kho</span>';
             })
-            ->addColumn('created_at_formatted', function ($row) {
-                return $row->created_at->format('d/m/Y H:i');
+            ->addColumn('created_at_formatted', function ($object) {
+                return $object->created_at->format('d/m/Y H:i');
             })
-            ->addColumn('action', function ($row) {
-                $viewUrl = route('transactions.show', $row->id);
-                $printUrl = route('transactions.print', $row->id);
+            ->addColumn('action', function ($object) {
+                $viewUrl = route('transactions.show', $object->id);
+                $printUrl = route('transactions.print', $object->id);
                 
             return '
                 <a href="' . $viewUrl . '" class="btn btn-sm btn-info" title="Xem">
