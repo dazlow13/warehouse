@@ -5,8 +5,7 @@
 
 @section('content')
 <div class="card shadow">
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">TẠO PHIẾU NHẬP / XUẤT KHO</h4>
+    <div class="card-header bg-primary text-white" style="padding: 20px;">
     </div>
 
     <div class="card-body">

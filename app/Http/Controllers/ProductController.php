@@ -131,37 +131,7 @@ class ProductController extends Controller
         $product->update($data);
 
         return redirect()->route('products.index');
-        // $product = $this->model->findOrFail($id);
-        // if ($request->hasFile('image')) {
-        //     if ($product->image && file_exists(public_path('storage/' . $product->image))) {
-        //         unlink(public_path('storage/' . $product->image));
-        //     }
-        //     // Lưu ảnh mới
-        //     $imagePath = $request->file('image')->store('products', 'public');
-        // }else {
-        //     $imagePath = $product->image;
-        // }
-
-        // // Lấy dữ liệu hợp lệ
-        // $product->update([
-        //     'name' => $request->name,
-        //     'category_id' => $request->category_id,
-        //     'manufacturer_id' => $request->manufacturer_id,
-        //     'quantity' => $request->quantity,
-        //     'unit' => $request->unit,
-        //     'cost_price' => $request->cost_price,
-        //     'sale_price' => $request->sale_price,
-        //     'description' => $request->description,
-        //     'image' => $imagePath,
-        // ]); // Cập nhật sản phẩm
-
-        // return redirect()->route('products.index');
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $product = $this->model->findOrFail($id);

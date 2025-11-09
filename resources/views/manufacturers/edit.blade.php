@@ -1,82 +1,65 @@
 @extends('layout.master')
 
 @section('content')
-<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-8">
-    <h2 class="text-2xl font-semibold text-gray-700 mb-6">
-        {{ isset($manufacturer) ? 'Edit Manufacturer' : 'Add New Manufacturer' }}
-    </h2>
+<div class="container mt-4">
     <form action="{{ isset($manufacturer) ? route('manufacturers.update', $manufacturer->id) : route('manufacturers.store') }}" 
-          method="POST" class="space-y-4">
+          method="POST">
         @csrf
         @if(isset($manufacturer))
             @method('PUT')
         @endif
 
-        {{-- Name --}}
-        <div>
-            <label for="name" class="block text-gray-700 font-medium mb-1">Name <span class="text-red-500">*</span></label>
-            <input type="text" id="name" name="name" 
-                   value="{{ old('name', $manufacturer->name ?? '') }}"
-                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <div class="mb-3">
+            <label class="form-label">Manufacturer Name <span class="text-danger">*</span></label>
+            <input type="text" name="name" class="form-control" 
+                   value="{{ old('name', $manufacturer->name ?? '') }}" required>
             @error('name')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>
 
-        {{-- Email --}}
-        <div>
-            <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
-            <input type="email" id="email" name="email"
-                   value="{{ old('email', $manufacturer->email ?? '') }}"
-                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control"
+                   value="{{ old('email', $manufacturer->email ?? '') }}">
             @error('email')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>
 
-        {{-- Phone --}}
-        <div>
-            <label for="phone" class="block text-gray-700 font-medium mb-1">Phone</label>
-            <input type="text" id="phone" name="phone"
-                   value="{{ old('phone', $manufacturer->phone ?? '') }}"
-                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input type="text" name="phone" class="form-control"
+                   value="{{ old('phone', $manufacturer->phone ?? '') }}">
             @error('phone')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>
 
-        {{-- Address --}}
-        <div>
-            <label for="address" class="block text-gray-700 font-medium mb-1">Address</label>
-            <input type="text" id="address" name="address"
-                   value="{{ old('address', $manufacturer->address ?? '') }}"
-                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" name="address" class="form-control"
+                   value="{{ old('address', $manufacturer->address ?? '') }}">
             @error('address')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>
 
-        {{-- Description --}}
-        <div>
-            <label for="description" class="block text-gray-700 font-medium mb-1">Description</label>
-            <textarea id="description" name="description" rows="3"
-                      class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">{{ old('description', $manufacturer->description ?? '') }}</textarea>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="3">{{ old('description', $manufacturer->description ?? '') }}</textarea>
             @error('description')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>
 
-        {{-- Buttons --}}
-        <div class="flex justify-end space-x-3 mt-6">
-            <button type="submit" 
-            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        <button type="submit" class="btn btn-primary px-4">
             {{ isset($manufacturer) ? 'Update' : 'Save' }}
         </button>
-        <a href="{{ route('manufacturers.index') }}" 
-           class="btn-cancel">
+        <a href="{{ route('manufacturers.index') }}" class="btn btn-secondary px-4 ms-2">
             Cancel
         </a>
-    </div>
     </form>
 </div>
+
 @endsection

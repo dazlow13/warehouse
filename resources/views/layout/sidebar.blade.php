@@ -33,7 +33,7 @@
                 @endnotrole
                 <!-- Các menu khác -->
                 <li class="mb-2"><a href="{{ role_route('transactions.index') }}" class="nav-link">Đơn hàng</a></li>
-                <li class="mb-2"><a href="#" class="nav-link">Tồn kho</a></li>
+                <li class="mb-2"><a href="{{ route('inventory.index') }}" class="nav-link">Tồn kho</a></li>
                 <li class="mb-2"><a href="#" class="nav-link">Thống kê</a></li>
                 @role('admin')
                 <li class="mb-2"><a href="{{ role_route('manufacturers.index') }}" class="nav-link">Nhà sản xuất</a></li>

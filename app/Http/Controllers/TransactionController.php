@@ -13,6 +13,7 @@ use App\Models\TransactionDetail;
 use App\Http\Requests\StoreTransactionRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 class TransactionController extends Controller
 {
     /**
@@ -96,7 +97,7 @@ class TransactionController extends Controller
     public function store(StoreTransactionRequest $request)
     {
         return DB::transaction(function () use ($request) {
-        // 1. Tạo phiếu
+        // Tạo phiếu
         $transaction = Transaction::create([
             'code' => Transaction::generateUniqueCode($request->type),
             'user_id' => Auth::id(),
@@ -114,7 +115,7 @@ class TransactionController extends Controller
 
             // Kiểm tra tồn kho (xuất kho)
             if ($request->type === 'export' && $product->quantity < $item['quantity']) {
-                throw \Illuminate\Validation\ValidationException::withMessages([
+                throw ValidationException::withMessages([
                     'items' => "Sản phẩm '{$product->name}' chỉ còn {$product->quantity} trong kho!"
                 ]);
             }

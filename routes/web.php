@@ -1,13 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ManufacturerController;
-use App\Http\Controllers\ProductController;
-use  App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\InventoryController;
 
 
 Route::middleware('guest')->group(function () {
@@ -28,7 +24,7 @@ Route::get('/dashboard', function () {
     $role = Auth::user()->role ?? 'guest';
     return redirect()->route("{$role}.dashboard");
 })->middleware('auth')->name('dashboard');
-
+Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 Route::get('/', function () {
     return view('layout.master');
 });
