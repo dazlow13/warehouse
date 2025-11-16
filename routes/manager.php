@@ -11,4 +11,6 @@ Route::middleware(['auth', 'role:admin,manager'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('transactions', TransactionController::class);
+    Route::get('/statistics', fn() => view('statistics.index'))
+    ->name('statistics.index');
 });

@@ -13,4 +13,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('manufacturers', ManufacturerController::class);
     Route::resource('products', ProductController::class);
     Route::resource('transactions', TransactionController::class);
+    Route::get('/statistics', fn() => view('statistics.index'))
+    ->name('statistics.index');
 });

@@ -55,15 +55,18 @@
         </tbody>
     </table>
 
-    <div style="margin-top: 50px; display: flex; justify-content: space-between;">
-        <div>
-            <p><strong>Người lập phiếu</strong></p>
-            <p>(Ký, ghi rõ họ tên)</p>
-        </div>
-        <div>
-            <p><strong>Thủ kho</strong></p>
-            <p>(Ký, ghi rõ họ tên)</p>
-        </div>
-    </div>
+<table style="width:100%; margin-top: 50px; border: none;">
+  <tr>
+    <td style="width:35%; text-align: center; border: none; vertical-align: top;">
+      <p><strong>Người lập phiếu</strong></p>
+      <p>(Ký, ghi rõ họ tên)</p>
+    </td>
+    <td style="width: 30%; border: none" ></td>
+    <td style="width: 35%; text-align: center; border: none; vertical-align: top;">
+      <p><strong>Thủ kho</strong></p>
+      <p>(Ký, ghi rõ họ tên)</p>
+    </td>
+  </tr>
+</table>
 </body>
 </html>

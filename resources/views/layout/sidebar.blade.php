@@ -1,16 +1,14 @@
 <div class="wrapper">
     <div class="sidebar">
-        <!-- Header -->
+
         <div class="logo">
             <a href="{{ route(Auth::user()->role . '.dashboard') }}">📦 Warehouse</a>
         </div>
 
-        <!-- Navigation -->
         <nav class="navbar navber-expand-lg" color-on-scroll="500">
             <ul class="navbar-nav ml-auto">
 
-                <!-- Sản phẩm với collapse -->
-                @notrole('viewer','warehouser')
+                @notrole('viewer', 'warehouser')
                 <li class="nav-item dropdown">
                     <button class="btn w-100 d-flex justify-content-between align-items-center "
                         data-bs-toggle="collapse" data-bs-target="#submenuProducts">
@@ -30,20 +28,26 @@
                         </li>
                     </ul>
                 </li>
+
                 @endnotrole
-                <!-- Các menu khác -->
                 <li class="mb-2"><a href="{{ role_route('transactions.index') }}" class="nav-link">Đơn hàng</a></li>
                 <li class="mb-2"><a href="{{ route('inventory.index') }}" class="nav-link">Tồn kho</a></li>
-                <li class="mb-2"><a href="#" class="nav-link">Thống kê</a></li>
+                @role(['admin', 'manager'])
+                <li class="nav-item">
+                    <a href="{{ route('statistics.index') }}" class="nav-link">
+                        Thống kê
+                    </a>
+                </li>
+                @endrole
                 @role('admin')
-                <li class="mb-2"><a href="{{ role_route('manufacturers.index') }}" class="nav-link">Nhà sản xuất</a></li>
+                <li class="mb-2"><a href="{{ role_route('manufacturers.index') }}" class="nav-link">Nhà sản xuất</a>
+                </li>
                 @endrole
                 <li class="mb-2"><a href="#" class="nav-link">Người dùng</a></li>
 
             </ul>
         </nav>
 
-        <!-- Logout đáy -->
         <div class="p-3 border-top mt-auto">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

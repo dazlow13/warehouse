@@ -5,12 +5,12 @@
         @csrf
         @method('PUT')
 
-        {{-- Product Name --}}
+
         <div class="mb-3">
             <label class="form-label">Product Name</label>
             <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control" required>
         </div>
-        {{-- Product Category --}}
+
         <div class="mb-3">
             <label class="form-label">Product Category</label>
             <select name="category_id" class="form-select" required>
@@ -22,7 +22,7 @@
                 @endforeach
             </select>
         </div>
-        {{-- Product Manufacturer --}}
+
         <div class="mb-3">
             <label class="form-label">Product Manufacturer</label>
             <select name="manufacturer_id" class="form-select" required>
@@ -34,43 +34,45 @@
                 @endforeach
             </select>
         </div>
-        {{-- Product Quantity --}}
+
+        @role('admin')
         <div class="mb-3">
             <label class="form-label">Quantity</label>
             <input type="number" name="quantity" value="{{ old('quantity', $product->quantity) }}" class="form-control"
                 required>
         </div>
-        {{-- Product Unit --}}
+        @endrole
+
         <div class="mb-3">
             <label class="form-label">Unit</label>
             <input type="text" name="unit" value="{{ old('unit', $product->unit) }}" class="form-control" required>
         </div>
-        {{-- Product Cost --}}
+
         <div>
             <label class="form-label">Cost Price</label>
             <input type="text" name="cost_price" value="{{ old('cost_price', $product->cost_price) }}" class="form-control"
                 required>
         </div>
         <div>
-            {{-- Product Sale --}}
+
             <div class="mb-3">
                 <label class="form-label">Sale Price</label>
                 <input type="text" name="sale_price" value="{{ old('sale_price', $product->sale_price) }}"
                     class="form-control" required>
             </div>
-            {{-- Product Description --}}
+
             <div class="mb-3">
                 <label class="form-label">Product Description</label>
                 <textarea name="description" rows="4" class="form-control"
                     required>{{ old('description', $product->description) }}</textarea>
             </div>
-            {{-- Product Image --}}
+
             <div>
                 <label class="form-label">Product Image</label>
                 <input type="file" name="image" id="image" accept="image/*" class="form-control">
             </div>
 
-            {{-- Buttons --}}
+
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary">Update Product</button>
                 <a href="{{ route('products.index') }}" class="btn-cancel">

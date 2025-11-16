@@ -33,7 +33,7 @@
                 <table class="table table-sm table-borderless">
                     <tr><th width="120">Tổng SL:</th><td><strong>{{ $transaction->quantity }}</strong> sản phẩm</td></tr>
                     <tr><th>Tổng tiền:</th><td><strong class="text-danger fs-5">${{ number_format($transaction->total_amount) }} </strong></td></tr>
-                    <tr><th>Ghi chú:</th><td>{{ $transaction->note ?? '<em>Không có</em>' }}</td></tr>
+                    <tr><th>Ghi chú:</th><td>{{ $transaction->note ?? 'Không có' }}</td></tr>
                 </table>
             </div>
         </div>

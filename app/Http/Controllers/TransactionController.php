@@ -107,8 +107,8 @@ class TransactionController extends Controller
             'total_amount' => 0,
         ]);
 
-        $totalQty = 0;
-        $totalAmount = 0;
+        $totalQty = 0;//tổng số lượng
+        $totalAmount = 0;//tổng thành tiền
 
         foreach ($request->items as $item) {
             $product = Product::find($item['product_id']);
@@ -134,8 +134,9 @@ class TransactionController extends Controller
 
             // Cập nhật tồn kho
             $request->type === 'import'
-                ? $product->increment('quantity', $item['quantity'])
-                : $product->decrement('quantity', $item['quantity']);
+                ? $product->increment('quantity', $item['quantity'], ['updated_at' => now()])
+                : $product->decrement('quantity', $item['quantity'], ['updated_at' => now()]);
+                $product->refresh();
         }
 
         // Cập nhật tổng

@@ -4,13 +4,11 @@
         class="p-4 bg-white rounded shadow-sm">
         @csrf
 
-        <!-- Product Name -->
         <div class="mb-3">
             <label class="form-label">Product Name</label>
             <input type="text" name="name" class="form-control" required>
         </div>
 
-        <!-- Category -->
         <div class="mb-3">
             <label class="form-label">Category</label>
             <select name="category_id" class="form-select">
@@ -22,7 +20,6 @@
             </select>
         </div>
 
-        <!-- Manufacturer -->
         <div class="mb-3">
             <label class="form-label">Manufacturer</label>
             <select name="manufacturer_id" class="form-select">
@@ -34,11 +31,12 @@
             </select>
         </div>
 
-        <!-- Quantity -->
+        @role('admin')
         <div class="mb-3">
             <label class="form-label">Quantity</label>
             <input type="number" name="quantity" class="form-control" required>
         </div>
+        @endrole
 
         <!-- Unit -->
         <div class="mb-3">
@@ -52,31 +50,26 @@
             </select>
         </div>
 
-        <!-- Cost Price -->
         <div class="mb-3">
             <label class="form-label">Cost Price</label>
             <input type="number" step="0.01" name="cost_price" class="form-control" required>
         </div>
 
-        <!-- Sale Price -->
         <div class="mb-3">
             <label class="form-label">Sale Price</label>
             <input type="number" step="0.01" name="sale_price" class="form-control" required>
         </div>
 
-        <!-- Description -->
         <div class="mb-3">
             <label class="form-label">Description</label>
             <textarea name="description" rows="4" class="form-control"></textarea>
         </div>
 
-        <!-- Image Upload -->
         <div class="mb-3">
             <label class="form-label">Image</label>
             <input type="file" name="image" class="form-control" accept="image/*">
         </div>
 
-        <!-- Buttons -->
         <button type="submit" class="btn btn-primary">Create Product</button>
         <a href="{{ route('products.index') }}" class="btn-cancel">
             Cancel
