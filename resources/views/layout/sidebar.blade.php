@@ -42,8 +42,10 @@
                 @role('admin')
                 <li class="mb-2"><a href="{{ role_route('manufacturers.index') }}" class="nav-link">Nhà sản xuất</a>
                 </li>
+                <li class="mb-2"><a href="{{ role_route('users.index') }}" class="nav-link">Người dùng</a></li>
                 @endrole
-                <li class="mb-2"><a href="#" class="nav-link">Người dùng</a></li>
+
+
 
             </ul>
         </nav>

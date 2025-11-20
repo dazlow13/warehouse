@@ -1,5 +1,4 @@
 @extends('layout.master')
-@section('title', 'Thống kê nhập xuất')
 
 @section('content')
 <div class="container-fluid py-4">

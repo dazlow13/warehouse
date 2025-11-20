@@ -5,7 +5,8 @@ use App\Http\Controllers\{
     CategoryController,
     ManufacturerController,
     ProductController,
-    TransactionController
+    TransactionController,
+    Admin\UserController
 };
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -13,6 +14,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('manufacturers', ManufacturerController::class);
     Route::resource('products', ProductController::class);
     Route::resource('transactions', TransactionController::class);
+    Route::resource('users', UserController::class);
     Route::get('/statistics', fn() => view('statistics.index'))
     ->name('statistics.index');
 });

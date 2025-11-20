@@ -6,7 +6,8 @@ use App\Http\Controllers\{
     ManufacturerController,
     ProductController,
     TransactionController,
-    InventoryController
+    InventoryController,
+    Admin\UserController
 };
 
 Route::middleware('web')->group(function () {
@@ -15,4 +16,5 @@ Route::middleware('web')->group(function () {
     Route::get('products', [ProductController::class, 'api'])->name('products.api');
     Route::get('transactions', [TransactionController::class, 'api'])->name('transactions.api');
     Route::get('inventorys', [InventoryController::class, 'api'])->name('inventory.api');
+    Route::get('users', [UserController::class, 'api'])->name('users.api');
 });
