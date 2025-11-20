@@ -1,43 +1,74 @@
+let itemIndex = 0;
 
-let itemIndex = 1;
-
-$(document).on('change', '.product-select', function() {
-    const price = $(this).find(':selected').data('price') || 0;
-    $(this).closest('.item-row').find('.unit-price').val(price.toFixed(2));
-    calculateLine($(this).closest('.item-row'));
-});
-
-$(document).on('input', '.quantity, .unit-price', function() {
-    calculateLine($(this).closest('.item-row'));
-});
-
-function calculateLine(row) {
-    const qty = parseFloat(row.find('.quantity').val()) || 0;
-    const price = parseFloat(row.find('.unit-price').val()) || 0;
-    const total = qty * price;
-    row.find('.line-total').val(
-    total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-);
-    calculateGrandTotal();
+function formatMoney(num) {
+    return new Intl.NumberFormat('en-US').format(num) + ' $';
 }
 
-function calculateGrandTotal() {
+function updateLineTotal(row) {
+    const qty = parseFloat(row.querySelector('.quantity').value) || 0;
+    const price = parseFloat(row.querySelector('.unit-price').value) || 0;
+    const total = qty * price;
+    row.querySelector('.line-total').value = formatMoney(total);
+    updateGrandTotal();
+}
+
+function updateGrandTotal() {
     let total = 0;
-    $('.line-total').each(function() {
-        const val = $(this).val().replace(/[^\d.-]/g, '');
+    document.querySelectorAll('.line-total').forEach(el => {
+        const val = el.value.replace(/[^\d]/g, '');
         total += parseFloat(val) || 0;
     });
-    $('#grand-total').text(total.toLocaleString('en-US',{ style: 'currency', currency: 'USD' }));
+    document.getElementById('grand-total').textContent = formatMoney(total);
 }
 
-$('#add-item').click(function() {
+function updatePriceFromType() {
+    const type = document.querySelector('input[name="type"]:checked').value;
+    document.querySelectorAll('.product-select').forEach(select => {
+        const option = select.options[select.selectedIndex];
+        if (!option || !option.value) return;
+
+        let price = 0;
+        if (type === 'import') {
+            price = parseFloat(option.dataset.costPrice) || 0;
+        } else {
+            price = parseFloat(option.dataset.salePrice) || 0;
+        }
+
+        const row = select.closest('.item-row');
+        const priceInput = row.querySelector('.unit-price');
+        priceInput.value = price;
+        updateLineTotal(row);
+    });
+}
+
+// Khi thay đổi loại phiếu
+document.querySelectorAll('input[name="type"]').forEach(radio => {
+    radio.addEventListener('change', updatePriceFromType);
+});
+
+// Khi chọn sản phẩm
+document.addEventListener('change', function(e) {
+    if (e.target.matches('.product-select')) {
+        updatePriceFromType();
+    }
+    if (e.target.matches('.quantity, .unit-price')) {
+        updateLineTotal(e.target.closest('.item-row'));
+    }
+});
+
+// Thêm dòng mới
+document.getElementById('add-item').addEventListener('click', function() {
+    itemIndex++;
     const template = `
-        <div class="item-row row align-items-end mb-2 border-bottom pb-2">
+        <div class="item-row row align-items-end g-2 mb-3 pb-3 border-bottom">
             <div class="col-md-5">
                 <select name="items[${itemIndex}][product_id]" class="form-select product-select" required>
                     <option value="">-- Chọn sản phẩm --</option>
                     @foreach($products as $p)
-                        <option value="{{ $p->id }}" data-price="{{ $p->sale_price }}" data-stock="{{ $p->quantity }}">
+                        <option value="{{ $p->id }}"
+                                data-cost-price="{{ $p->cost_price }}"
+                                data-sale-price="{{ $p->sale_price }}"
+                                data-stock="{{ $p->quantity }}">
                             {{ $p->name }} (Tồn: {{ $p->quantity }})
                         </option>
                     @endforeach
@@ -47,42 +78,30 @@ $('#add-item').click(function() {
                 <input type="number" name="items[${itemIndex}][quantity]" class="form-control quantity" min="1" value="1" required>
             </div>
             <div class="col-md-2">
-                <input type="number" name="items[${itemIndex}][unit_price]" class="form-control unit-price" min="0" step="0.01" required>
+                <input type="number" step="0.01" name="items[${itemIndex}][unit_price]" class="form-control unit-price" readonly>
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control line-total text-end fw-bold" readonly>
+                <input type="text" class="form-control line-total text-end fw-bold bg-white" readonly>
             </div>
-            <div class="col-md-1 text-end">
-                <button type="button" class="btn btn-danger btn-sm remove-item">
-                    <i class="fas fa-trash"></i>
-                </button>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-danger btn-sm remove-item">Xóa</button>
             </div>
         </div>`;
     
-    $('#items-container').append(template);
-    itemIndex++;
+    document.getElementById('items-container').insertAdjacentHTML('beforeend', template);
 });
 
-$(document).on('click', '.remove-item', function() {
-    if ($('.item-row').length > 1) {
-        $(this).closest('.item-row').remove();
-        calculateGrandTotal();
+// Xóa dòng
+document.addEventListener('click', function(e) {
+    if (e.target.matches('.remove-item')) {
+        if (document.querySelectorAll('.item-row').length > 1) {
+            e.target.closest('.item-row').remove();
+            updateGrandTotal();
+        }
     }
 });
 
-// Kiểm tra tồn kho khi xuất
-$('input[name="type"]').change(function() {
-    const isExport = $(this).val() === 'export';
-
-    $('.product-select').each(function() {
-        const stock = $(this).find(':selected').data('stock') || 0;
-        const qtyInput = $(this).closest('.item-row').find('.quantity');
-
-        if (isExport) {
-            qtyInput.attr('max', stock);
-        } else {
-            qtyInput.removeAttr('max');
-        }
-    });
+// Khởi chạy lần đầu
+document.addEventListener('DOMContentLoaded', function() {
+    updatePriceFromType();
 });
-

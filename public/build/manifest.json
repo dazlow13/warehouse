@@ -1,0 +1,28 @@
+{
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
+    "file": "assets/bootstrap-icons-BeopsB42.woff",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff",
+    "integrity": "sha384-IYfD9pNP/nesQsPyYtTdGCb4uhEWUmNF8GxaCvqcJFH+Of3c1b0VbH6hdHUonDSC"
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
+    "file": "assets/bootstrap-icons-mSm7cUeB.woff2",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2",
+    "integrity": "sha384-xEoI56EFpIZiDZZKBZxsn3gO3u/FvXtOpHbtkMWmSdfzDw3x9XdVc3i70O9hm4SC"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-BTknKUy6.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ],
+    "integrity": "sha384-ebC3ujuXm2MdvgHLTId23V3Gqzsq2RMEcAZm00CbzmyYEqd8sn/dtZTPzu/1miy3"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CygvssId.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "integrity": "sha384-p6MJKD3uEMW+6tKrJNEqI5znpIBuIQTteLjg0Ekd+I09Nw1KfTTtMZ0mHU/PAesY"
+  }
+}

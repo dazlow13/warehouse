@@ -7,8 +7,7 @@
     <title>{{ $title ?? 'Dashboard' }}</title>
 
     {{-- Bootstrap & app CSS --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @vite(['resources/css/app.css','resources/js/app.js'])
     @stack('styles')
 </head>
 
@@ -43,6 +42,7 @@
     @livewireScripts
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
     @stack('scripts')
 </body>
 
