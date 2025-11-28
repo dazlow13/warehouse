@@ -60,7 +60,7 @@ class UserFactory extends Factory
             'name' => 'Thủ kho A',
             'email' => 'thukho@warehouse.com',
             'password' => bcrypt('kho123'),
-            'role' => 'warehouseman',
+            'role' => 'warehouse',
         ]);
     }
 }

@@ -50,6 +50,17 @@
                 </tr>
             @endforeach
         </tbody>
+         <tfoot class="table-secondary">
+            <tr>
+                <td colspan="2" class="text-end"><strong>Tổng cộng:</strong></td>
+                <td><strong>${{ number_format($totalAmount) }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-end">
+                    <strong>Tổng số phiếu: {{ $totalTransactions }}</strong>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 

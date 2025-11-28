@@ -19,7 +19,7 @@
         <label>Vai trò</label>
         <select name="role">
             <option value="manager">Manager</option>
-            <option value="warehouseman">Warehouseman</option>
+            <option value="warehouse">Warehouse</option>
             <option value="user">User</option>
         </select>
 

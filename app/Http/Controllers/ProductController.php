@@ -82,7 +82,6 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        // Nếu có upload ảnh (tùy bạn có dùng hay không)
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
         }

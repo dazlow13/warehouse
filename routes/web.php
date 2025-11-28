@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\InventoryController;
+use Illuminate\Support\Facades\Cookie;
 
 
 Route::middleware('guest')->group(function () {
@@ -20,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manager/dashboard', fn() => view('manager.dashboard'))->name('manager.dashboard');
     Route::get('/warehouse/dashboard', fn() => view('warehouse.dashboard'))->name('warehouse.dashboard');
 });
+
 Route::get('/dashboard', function () {
     $role = Auth::user()->role ?? 'guest';
     return redirect()->route("{$role}.dashboard");
@@ -28,7 +30,19 @@ Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory
 Route::get('/', function () {
     return view('layout.master');
 });
+Route::get('/clear-login', function () {
+    // Logout user hiện tại
+    Auth::logout();
 
+    // Xóa session hiện tại
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    // Xóa cookie remember me nếu có
+    Cookie::queue(Cookie::forget(Auth::getRecallerName()));
+
+    return redirect('/login')->with('status', 'Đã xóa session và logout thành công!');
+});
 
 
 // Route::middleware('auth')->group(function () {

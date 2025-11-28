@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('manufacturers', function (Blueprint $table) {
              $table->id();
-            $table->string('name'); // Tên nhà sản xuất
-            $table->string('email')->nullable(); // Email liên hệ
-            $table->string('phone')->nullable(); // Số điện thoại
-            $table->string('address')->nullable(); // Địa chỉ
-            $table->text('description')->nullable(); // Mô tả thêm
+            $table->string('name'); 
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->text('description')->nullable(); 
             $table->timestamps();
         });
     }
