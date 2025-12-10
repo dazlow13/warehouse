@@ -14,6 +14,7 @@
                 <th>Sale Price</th>
                 <th>Image</th>
                 <th>Created At</th>
+                <th>Update At</th>
             </tr>
         </thead>
     </table>
@@ -54,7 +55,8 @@
                             }
                         }
                     },
-                    { data: 'created_at', name: 'created_at' }
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'updated_at', name: 'updated_at' }
                 ]
             });
         });

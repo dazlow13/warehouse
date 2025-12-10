@@ -21,24 +21,27 @@ class InventoryController extends Controller
     }
     public function api()
     {
-        return Datatables::of($this->model->with(['category', 'manufacturer'])->select('products.*'))
-            ->editColumn('created_at', function ($product) {
-                return $product->created_at ?->format('d/m/Y H:i') ?? '';
-            })
-            ->addColumn('category_name', function ($product) {
-                return $product->category ?-> name ?? 'Không xác định';
-            })
-            ->addColumn('manufacturer_name', function ($product) {
-                return $product->manufacturer ?-> name ?? 'Không xác định';
-            })
-            ->addColumn('quantity_status', function ($row) {
-                if ($row->quantity <= 0)
-                    return '<span class="badge bg-danger">Hết hàng</span>';
-                elseif ($row->quantity <= 10)
-                    return '<span class="badge bg-warning text-dark">' . $row->quantity . '</span>';
-                else
-                    return '<span class="badge bg-success">' . $row->quantity . '</span>';
-            })
+        return Datatables::of($this->model->with(['category', 'manufacturer']))
+        ->addColumn('category_name', function ($product) {
+            return $product->category ?-> name ?? 'Không xác định';
+        })
+        ->addColumn('manufacturer_name', function ($product) {
+            return $product->manufacturer ?-> name ?? 'Không xác định';
+        })
+        ->addColumn('quantity_status', function ($row) {
+            if ($row->quantity <= 0)
+                return '<span class="badge bg-danger">Hết hàng</span>';
+            elseif ($row->quantity <= 10)
+                return '<span class="badge bg-warning text-dark">' . $row->quantity . '</span>';
+            else
+                return '<span class="badge bg-success">' . $row->quantity . '</span>';
+        })
+        ->editColumn('created_at', function ($product) {
+            return $product->created_at ?->format('d/m/Y H:i') ?? '';
+        })
+        ->editColumn('updated_at', function ($product) {
+            return $product->updated_at?->format('d/m/Y H:i') ?? '';
+        })
             ->editColumn('sale_price', fn($row) => '$' . number_format($row->sale_price, 0, ',', '.'))
             ->rawColumns(['quantity_status'])
             ->make(true);

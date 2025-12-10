@@ -35,7 +35,7 @@ class TransactionController extends Controller
     {
         return DataTables::of($this->model->with(['user', 'details.product'])->select('transactions.*'))
             ->addColumn('user', function ($object) {
-                return $object->user ?->name ?? 'N/A';
+                return $object->user?->name ?? 'N/A';
             })
             ->addColumn('product_name', function ($object) {
                 return $object->details->map(fn($d) => $d->product_name)->implode(', ');
@@ -57,8 +57,7 @@ class TransactionController extends Controller
             ->addColumn('action', function ($object) {
                 $viewUrl = route('transactions.show', $object->id);
                 $printUrl = route('transactions.print', $object->id);
-                
-            return '
+                return '
                 <a href="' . $viewUrl . '" class="btn btn-sm btn-info" title="Xem">
                     Xem
                 </a>
@@ -87,7 +86,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $products = Product::with(['category','manufacturer'])->get();
+        $products = Product::with(['category', 'manufacturer'])->get();
         return view('transactions.create', compact('products'));
     }
 
@@ -97,58 +96,61 @@ class TransactionController extends Controller
     public function store(StoreTransactionRequest $request)
     {
         return DB::transaction(function () use ($request) {
-        // Tạo phiếu
-        $transaction = Transaction::create([
-            'code' => Transaction::generateUniqueCode($request->type),
-            'user_id' => Auth::id(),
-            'type' => $request->type,
-            'note' => $request->note,
-            'quantity' => 0,
-            'total_amount' => 0,
-        ]);
-
-        $totalQty = 0;//tổng số lượng
-        $totalAmount = 0;//tổng thành tiền
-
-        foreach ($request->items as $item) {
-            $product = Product::find($item['product_id']);
-
-            // Kiểm tra tồn kho (xuất kho)
-            if ($request->type === 'export' && $product->quantity < $item['quantity']) {
-                throw ValidationException::withMessages([
-                    'items' => "Sản phẩm '{$product->name}' chỉ còn {$product->quantity} trong kho!"
-                ]);
-            }
-
-            // Tạo chi tiết
-            TransactionDetail::create([
-                'transaction_id' => $transaction->id,
-                'product_id' => $product->id,
-                'manufacturer_id' => $product->manufacturer_id,
-                'quantity' => $item['quantity'],
-                'unit_price' => $item['unit_price'],
+            // Tạo phiếu
+            $transaction = Transaction::create([
+                'code' => Transaction::generateUniqueCode($request->type),
+                'user_id' => Auth::id(),
+                'type' => $request->type,
+                'note' => $request->note,
+                'quantity' => 0,
+                'total_amount' => 0,
             ]);
 
-            $totalQty += $item['quantity'];
-            $totalAmount += $item['quantity'] * $item['unit_price'];
+            $totalQty = 0;//tổng số lượng
+            $totalAmount = 0;//tổng thành tiền
 
-            // Cập nhật tồn kho
-            $request->type === 'import'
-                ? $product->increment('quantity', $item['quantity'], ['updated_at' => now()])
-                : $product->decrement('quantity', $item['quantity'], ['updated_at' => now()]);
-                $product->refresh();
-        }
+            foreach ($request->items as $item) {
+                $product = Product::find($item['product_id']);
 
-        // Cập nhật tổng
-        $transaction->update([
-            'quantity' => $totalQty,
-            'total_amount' => $totalAmount,
-        ]);
+                // Kiểm tra tồn kho (xuất kho)
+                if ($request->type === 'export' && $product->quantity < $item['quantity']) {
+                    throw ValidationException::withMessages([
+                        'items' => "Sản phẩm '{$product->name}' chỉ còn {$product->quantity} trong kho!"
+                    ]);
+                }
 
-        return redirect()
-            ->route('transactions.show', $transaction)
-            ->with('success', 'Tạo phiếu thành công!');
-    });
+                // Tạo chi tiết
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'product_id' => $product->id,
+                    'manufacturer_id' => $product->manufacturer_id,
+                    'quantity' => $item['quantity'],
+                    'unit_price' => $item['unit_price'],
+                ]);
+
+                $totalQty += $item['quantity'];
+                $totalAmount += $item['quantity'] * $item['unit_price'];
+
+                // Cập nhật tồn kho
+                if ($request->type === 'import') {
+                    $product->quantity += $item['quantity'];
+                } else {
+                    $product->quantity -= $item['quantity'];
+                }
+
+                $product->save();
+            }
+
+            // Cập nhật tổng
+            $transaction->update([
+                'quantity' => $totalQty,
+                'total_amount' => $totalAmount,
+            ]);
+
+            return redirect()
+                ->route('transactions.show', $transaction)
+                ->with('success', 'Tạo phiếu thành công!');
+        });
     }
 
     /**

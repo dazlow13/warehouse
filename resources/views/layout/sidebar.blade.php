@@ -4,7 +4,10 @@
         <div class="logo">
             <a href="{{ route(Auth::user()->role . '.dashboard') }}">📦 Warehouse</a>
         </div>
-        
+        <!-- Nút chuyển đổi sidebar cho thiết bị di động -->
+        <button class="sidebar-toggle-btn d-lg-none" id="sidebarToggle">
+            <i class="bi bi-list"></i> <!-- Dùng Bootstrap Icons -->
+        </button>
         <nav class="navbar navber-expand-lg" color-on-scroll="500">
             <ul class="navbar-nav ml-auto">
                 @role(['admin', 'manager'])
@@ -28,8 +31,9 @@
                     </ul>
                 </li>
                 @endrole
-
-                <li class="mb-2"><a href="{{ role_route('transactions.index') }}" class="nav-link">Đơn hàng</a></li>
+                @notrole('user')
+                <li class="mb-2"><a href="{{ route('transactions.index') }}" class="nav-link">Đơn hàng</a></li>
+                @endnotrole
                 <li class="mb-2"><a href="{{ route('inventory.index') }}" class="nav-link">Tồn kho</a></li>
 
                 @role(['admin', 'manager'])
@@ -44,12 +48,16 @@
                 </li>
                 <li class="mb-2"><a href="{{ role_route('users.index') }}" class="nav-link">Người dùng</a></li>
                 @endrole
+                <li class="mb-2">
+                    <a href="{{ route('profile.show') }}" class="nav-link">Hồ sơ cá nhân</a>
+                </li>
 
 
 
             </ul>
         </nav>
-
+        <!-- Overlay khi sidebar mở trên mobile -->
+        <div class="sidebar-overlay d-lg-none" id="sidebarOverlay"></div>
         <div class="p-3 border-top mt-auto">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
