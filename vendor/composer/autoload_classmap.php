@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Controllers\\Admin\\UserController' => $baseDir . '/app/Http/Controllers/Admin/UserController.php',
     'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => $baseDir . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
     'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => $baseDir . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',
@@ -35,9 +36,11 @@ return array(
     'App\\Http\\Requests\\StoreManufacturerRequest' => $baseDir . '/app/Http/Requests/StoreManufacturerRequest.php',
     'App\\Http\\Requests\\StoreProductRequest' => $baseDir . '/app/Http/Requests/StoreProductRequest.php',
     'App\\Http\\Requests\\StoreTransactionRequest' => $baseDir . '/app/Http/Requests/StoreTransactionRequest.php',
+    'App\\Http\\Requests\\StoreUserRequest' => $baseDir . '/app/Http/Requests/StoreUserRequest.php',
     'App\\Http\\Requests\\UpdateCategoryRequest' => $baseDir . '/app/Http/Requests/UpdateCategoryRequest.php',
     'App\\Http\\Requests\\UpdateManufacturerRequest' => $baseDir . '/app/Http/Requests/UpdateManufacturerRequest.php',
     'App\\Http\\Requests\\UpdateProductRequest' => $baseDir . '/app/Http/Requests/UpdateProductRequest.php',
+    'App\\Livewire\\TransactionAnalytics' => $baseDir . '/app/Livewire/TransactionAnalytics.php',
     'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
     'App\\Models\\Manufacturer' => $baseDir . '/app/Models/Manufacturer.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
@@ -48,6 +51,7 @@ return array(
     'App\\Policies\\ManufacturerPolicy' => $baseDir . '/app/Policies/ManufacturerPolicy.php',
     'App\\Policies\\ProductPolicy' => $baseDir . '/app/Policies/ProductPolicy.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
+    'App\\Services\\TransactionStatisticService' => $baseDir . '/app/Services/TransactionStatisticService.php',
     'App\\View\\Components\\AppLayout' => $baseDir . '/app/View/Components/AppLayout.php',
     'App\\View\\Components\\GuestLayout' => $baseDir . '/app/View/Components/GuestLayout.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

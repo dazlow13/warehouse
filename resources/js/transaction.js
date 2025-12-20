@@ -1,5 +1,4 @@
 let itemIndex = 0;
-
 // ĐỊNH DẠNG TIỀN USD ĐẸP
 function formatMoney(num) {
     return new Intl.NumberFormat('en-US', {

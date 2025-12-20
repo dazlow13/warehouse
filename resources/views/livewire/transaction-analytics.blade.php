@@ -63,11 +63,9 @@
         </tfoot>
     </table>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-    let chartInstance = null;
+let chartInstance = null;
 
     document.addEventListener('livewire:init', () => {
         Livewire.on('refresh-chart', ({ labels, data }) => {

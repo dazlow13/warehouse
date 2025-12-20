@@ -6,7 +6,7 @@
         </div>
         <!-- Nút chuyển đổi sidebar cho thiết bị di động -->
         <button class="sidebar-toggle-btn d-lg-none" id="sidebarToggle">
-            <i class="bi bi-list"></i> <!-- Dùng Bootstrap Icons -->
+            <i class="bi bi-list"></i> 
         </button>
         <nav class="navbar navber-expand-lg" color-on-scroll="500">
             <ul class="navbar-nav ml-auto">
